@@ -83,7 +83,7 @@ while True:
         
             bootcamp_data["karvands"].append(karvand)
             os.makedirs(target_path, exist_ok=True)
-            with open("data/karvands.json", "+w") as file:
+            with open("data/karvands.json", "w") as file:
                 json.dump(bootcamp_data, file, indent=4)
 
             skills = []
@@ -132,7 +132,7 @@ while True:
 
                 if not flag:
                     print(f"There is no karvand with this id: {search_id}")
-                    
+         
         case "4" | "Search(skills)":
             search_skill = input("Enter an skill to search: ")
             with open("data/karvands.json", "r") as file:
@@ -140,17 +140,16 @@ while True:
                 current_karvands = data["karvands"]
                 flag = False
                 for karvand in current_karvands:
-                    print(karvand["skills"])
                     for sk in karvand["skills"]:
-                            if sk == search_skill:
+                            if sk['name'] == search_skill:
                                 print(f"{karvand['id']} -- {karvand["full_name"]} -- {karvand["email"]}")
                                 flag = True
-                    if not flag:
-                        print(f"There is no karvand with this skill: {search_skill}")
+                if not flag:
+                    print(f"There is no karvand with this skill: {search_skill}")
                                 
         case "5" | "Edit":
             edit_id = input("Please enter an id: ")
-            with open("data/karvands.json", "r") as file:
+            with open("data/karvands.json", "+r") as file:
                 data = json.load(file)
                 current_karvands = data["karvands"]
                 flag = False
@@ -158,16 +157,48 @@ while True:
                 for karvand in current_karvands:
                     if karvand["id"] == edit_id:
                         flag = True
-                        
+                        edit_option = input("""which one you want to edit:
+                              1.Email
+                              2.City
+                              3.Degree
+                              4.Field
+                               """)
+                        match edit_option:
+                            case "1" | "Email":
+                                edit_email = input("Please enter new email: ")
+                                karvand["email"] = edit_email
+                            case "2" | "City":
+                                edit_city = input("Please enter new city: ")
+                                karvand["city"] = edit_city
+                            case "3" | "Degree" :
+                                edit_degree = input("Please enter new degree: ")
+                                karvand["education"]["degree"] = edit_degree
+                            case "4" | "Field" :
+                                edit_field = input("Please enter new field: ")
+                                karvand["education"]["field"] = edit_field
 
-            
+                with open("data/karvands.json", "w") as file:
+                    json.dump(data, file, indent=4)
                 if not flag:
                     print(f"there is no karvand with this id: {edit_id}")        
 
-                
-            
         case "6" | "Delete":
-            ...
+            delete_id = input("Please enter an id: ")
+            with open("data/karvands.json", "+r") as file:
+                data = json.load(file)
+                current_karvands = data["karvands"]
+                flag = False
+
+                for karvand in current_karvands:
+                    if karvand["id"] == delete_id:
+                        flag = True
+                        current_karvands.remove(karvand)
+
+                with open("data/karvands.json", "w") as file:
+                    json.dump(data, file, indent=4)
+
+                if not flag:
+                    print(f"There is no karvand with this id: {delete_id}")
         case "7" | "Repport":
             ...
         case "8" | "Exit":
