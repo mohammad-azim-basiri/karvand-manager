@@ -1,0 +1,42 @@
+{
+    "bootcamp": {
+        "title": "Karvand Python",
+        "year": 2026
+    },
+    "karvands": [
+        {
+            "id": "e142e932-5727-4912-8daa-955183db536f",
+            "full_name": "m.azim",
+            "email": "m.azim@gmail.com",
+            "city": "Tehran",
+            "education": {
+                "degree": "Master",
+                "field": "computer"
+            },
+            "skills": [
+                {
+                    "name": "Front End",
+                    "level": "advanced",
+                    "score": 80
+                }
+            ]
+        },
+        {
+            "id": "4f93149b-79c4-4446-936d-8fd94006afa5",
+            "full_name": "mohammad",
+            "email": "mohammad@gmail.com",
+            "city": "Hamedan",
+            "education": {
+                "degree": "PHD",
+                "field": "computer"
+            },
+            "skills": [
+                {
+                    "name": "LLM",
+                    "level": "intermediate",
+                    "score": 50
+                }
+            ]
+        }
+    ]
+}

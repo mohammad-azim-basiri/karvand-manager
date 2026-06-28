@@ -1,6 +1,7 @@
 import uuid
 import json
 import os
+
 target_path = r"G:\Maktabsharif_AI\CW2\karvand-manager\data"
 
 bootcamp_data = {
