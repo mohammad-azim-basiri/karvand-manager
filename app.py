@@ -1,12 +1,20 @@
 import uuid
+import json
 
+bootcamp_data = {
+    "bootcamp": {
+        "title": "Karvand Python",
+        "year": 2026
+    },
+    "karvands": []
+}
 karvands = []
 def create_new_karvand(karvand_name,karvand_email
                        ,karvand_city,karvand_degree,karvand_field
                        ,karvand_id,skills):
     new_karvand = {
         
-            "id": karvand_id,
+            "id": str(karvand_id),
             "full_name": karvand_name,
             "email": karvand_email,
             "city": karvand_city,
@@ -55,27 +63,43 @@ while True:
                     break
                 else:
                     karvand_skill_level = input("Enter level of skill: ")
-                    karvand_skill_score = int(input("Enter score of skill: "))
+                    try:
+                        karvand_skill_score = int(input("Enter score of skill: "))
+                    except ValueError:
+                        print("You can only enter number in this field.")
+                        karvand_skill_score = int(input("Enter score of skill: "))
                     if karvand_skill_score < 0 | karvand_skill_score > 100:
                         print("enter skill score between 0 - 100")
                     while 100 <  karvand_skill_score < 0:
                         karvand_skill_score = int(input("Enter score of skill: "))
                     skill = create_skill_list(karvand_skill_name,karvand_skill_level,karvand_skill_score)         
                     skills.append(skill)
-                karvand = create_new_karvand(karvand_name,karvand_email
+            karvand = create_new_karvand(karvand_name,karvand_email
                        ,karvand_city,karvand_degree,karvand_field
                        ,karvand_id,skills)
-                karvands.append(karvand)
+            karvands.append(karvand)    
+        
+            bootcamp_data["karvands"].append(karvands)
+            with open("karvands.json", "w") as file:
+                json.dump(bootcamp_data, file, indent=4)
 
 
         case "2" | "Show":
-            ...
+            with open("karvands.json", "r") as file:
+                data = json.load(file)
+                karvands = data["karvands"]
+                if len(karvands) == 0:
+                    print("There is no karvand in karvands.json")
+                else:
+                    for karvand in karvands:
+                        print(f"{karvand_id} -- {karvand_name}\n{karvand_email} -- {karvand_city}\n{karvand["education"]["degree"]} -- {karvand["education"]["field"]}\n{karvand["skills"]["name"]} -- {karvand["skills"]["level"]} -- {karvand["skills"]["score"]}")
+        
         case "3" | "Search(id)":
             ...
         case "4" | "Search(skills)":
             ...
         case "5" | "Edit":
-            ...
+            print(karvands)
         case "6" | "Delete":
             ...
         case "7" | "Repport":
