@@ -199,7 +199,40 @@ while True:
 
                 if not flag:
                     print(f"There is no karvand with this id: {delete_id}")
+
         case "7" | "Repport":
-            ...
+            with open("data/karvands.json","+r") as file:
+                data = json.load(file)
+                current_karvands = data["karvands"]
+                count_of_karvand = 0
+                count_of_skills = 0
+                sum_of_scores = 0
+                list_of_cities = []
+                list_of_skills = []
+                for karvand in current_karvands:
+                    list_of_cities.append(karvand["city"])
+                    count_of_karvand += 1
+                    for sk in karvand["skills"]:
+                        count_of_skills += 1
+                        sum_of_scores += sk["score"]
+                        if not sk["name"] in list_of_skills:
+                            list_of_skills.append(sk["name"])
+
+
+                print(f"\"total_karvands\" : {count_of_karvand}")  
+                print(f"\"total_skills\" : {count_of_skills}") 
+                print(f"\"average_skill_score\" : {sum_of_scores / count_of_skills}") 
+                print(f"\"cities\":{list_of_cities}")
+                print(f"\"unique_skills\":{list_of_skills}")
+                
+                data_of_repport = {"total_karvands":count_of_karvand,
+                                   "total_skills":count_of_skills,
+                                   "average_skill_score":sum_of_scores / count_of_skills,
+                                   "cities":list_of_cities,
+                                   "unique_skills":list_of_skills}
+
+                with open("data/report.json","+w") as f:
+                    json.dump(data_of_repport, f , indent=4)
+
         case "8" | "Exit":
-            ...
+            break
