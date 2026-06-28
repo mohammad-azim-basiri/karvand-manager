@@ -1,5 +1,7 @@
 import uuid
 import json
+import os
+target_path = r"G:\Maktabsharif_AI\CW2\karvand-manager\data"
 
 bootcamp_data = {
     "bootcamp": {
@@ -79,25 +81,79 @@ while True:
                        ,karvand_id,skills)
             karvands.append(karvand)    
         
-            bootcamp_data["karvands"].append(karvands)
-            with open("karvands.json", "w") as file:
+            bootcamp_data["karvands"].append(karvand)
+            os.makedirs(target_path, exist_ok=True)
+            with open("data/karvands.json", "w") as file:
                 json.dump(bootcamp_data, file, indent=4)
 
-
+            skills = []
         case "2" | "Show":
-            with open("karvands.json", "r") as file:
+            
+            if not os.path.exists("data/karvands.json"):
+                print("No data found yet.")
+                continue
+                
+            with open("data/karvands.json", "r") as file:
                 data = json.load(file)
-                karvands = data["karvands"]
-                if len(karvands) == 0:
+                current_karvands = data["karvands"]
+                
+                if len(current_karvands) == 0:
                     print("There is no karvand in karvands.json")
                 else:
-                    for karvand in karvands:
-                        print(f"{karvand_id} -- {karvand_name}\n{karvand_email} -- {karvand_city}\n{karvand["education"]["degree"]} -- {karvand["education"]["field"]}\n{karvand["skills"]["name"]} -- {karvand["skills"]["level"]} -- {karvand["skills"]["score"]}")
-        
+                    for karvand in current_karvands:
+                        # چاپ اطلاعات اصلی
+                        print(f"\nID: {karvand['id']} -- Name: {karvand['full_name']}")
+                        print(f"Email: {karvand['email']} -- City: {karvand['city']}")
+                        print(f"Education: {karvand['education']['degree']} in {karvand['education']['field']}")
+                        
+                        
+                        print("Skills:")
+                        for sk in karvand["skills"]:
+                            print(f"  - {sk['name']} (Level: {sk['level']}, Score: {sk['score']})")
+                        print("-" * 30)
         case "3" | "Search(id)":
-            ...
+            search_id = input("Please enter an id: ")
+            with open("karvand-manager/data/karvands.json", "r") as file:
+                data = json.load(file)
+                current_karvands = data["karvands"]
+                flag = False
+
+                for karvand in current_karvands:
+                    if karvand["id"] == search_id:
+                        print(f"\nID: {karvand['id']} -- Name: {karvand['full_name']}")
+                        print(f"Email: {karvand['email']} -- City: {karvand['city']}")
+                        print(f"Education: {karvand['education']['degree']} in {karvand['education']['field']}")
+                        
+                        print("Skills:")
+                        for sk in karvand["skills"]:
+                            print(f"  - {sk['name']} (Level: {sk['level']}, Score: {sk['score']})")
+                        print("-" * 30)
+                        flag = True
+
+                if not flag:
+                    print(f"There is no karvand with this id: {search_id}")
+                    
         case "4" | "Search(skills)":
-            ...
+            search_skill = input("Enter an skill to search: ")
+            with open("karvand-manager/data/karvands.json", "r") as file:
+                data = json.load(file)
+                current_karvands = data["karvands"]
+                # flag = False
+                for karvand in current_karvands:
+                    print(karvand["skills"])
+                    # if karvand["skills"]["name"] == search_skill :
+                    #     print(f"\nID: {karvand['id']} -- Name: {karvand['full_name']}")
+                    #     print(f"Email: {karvand['email']} -- City: {karvand['city']}")
+                    #     print(f"Education: {karvand['education']['degree']} in {karvand['education']['field']}")
+                        
+                    #     print("Skills:")
+                    #     for sk in karvand["skills"]:
+                    #         print(f"  - {sk['name']} (Level: {sk['level']}, Score: {sk['score']})")
+                    #     print("-" * 30)
+                        # flag = True
+                # if not flag:
+                #     print(f"There is no karvand with this skill: {search_skill}")
+
         case "5" | "Edit":
             print(karvands)
         case "6" | "Delete":
