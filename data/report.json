@@ -1,0 +1,13 @@
+{
+    "total_karvands": 2,
+    "total_skills": 2,
+    "average_skill_score": 65.0,
+    "cities": [
+        "Tehran",
+        "Hamedan"
+    ],
+    "unique_skills": [
+        "Front End",
+        "LLM"
+    ]
+}
