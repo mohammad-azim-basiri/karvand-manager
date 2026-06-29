@@ -1,4 +1,4 @@
-# uuif for making unique id
+# uuid for making unique id
 import uuid
 import json
 import os
@@ -12,7 +12,7 @@ bootcamp_data = {
     },
     "karvands": []
 }
-karvands = []
+# karvands = []
 def create_new_karvand(karvand_name,karvand_email
                        ,karvand_city,karvand_degree,karvand_field
                        ,karvand_id,skills):
@@ -54,37 +54,60 @@ while True:
 
     match user_order:
         case "1" | "Add":
-            karvand_name = input("Enter name of karvand: ")
-            karvand_email = input("Enter email of karvand: ")
-            karvand_city = input("Enter city of karvand: ")
-            karvand_degree = input("Enter degree of karvand: ")
-            karvand_field = input("Enter field of karvand: ")
+            karvand_name = input("Enter name of karvand: ").strip()
+            karvand_email = input("Enter email of karvand: ").strip()
+            karvand_city = input("Enter city of karvand: ").strip().lower()
+            karvand_degree = input("Enter degree of karvand: ").strip().lower()
+            karvand_field = input("Enter field of karvand: ").strip().lower()
             karvand_id = uuid.uuid4()
 
             while True:
-                karvand_skill_name = input("Enter skill\' name of karvand(enter 0 to exit from skill part): ")
+                karvand_skill_name = input("Enter skill\' name of karvand(enter 0 to exit from skill part): ").strip().lower()
                 if karvand_skill_name == "0" :
                     break
                 else:
                     karvand_skill_level = input("Enter level of skill: ")
-                    try:
-                        karvand_skill_score = int(input("Enter score of skill: "))
-                    except ValueError:
-                        print("You can only enter number in this field.")
-                        karvand_skill_score = int(input("Enter score of skill: "))
-                    if karvand_skill_score < 0 | karvand_skill_score > 100:
+                    while True:
+                        try:
+                            karvand_skill_score = int(input("Enter score of skill: "))
+                            break
+                        except ValueError:
+                            print("You can only enter number in this field.")
+                    
+                    if karvand_skill_score < 0 or karvand_skill_score > 100:
                         print("enter skill score between 0 - 100")
-                    while 100 <  karvand_skill_score < 0:
+                    while 0 >  karvand_skill_score or karvand_skill_score > 100:
                         karvand_skill_score = int(input("Enter score of skill: "))
                     skill = create_skill_list(karvand_skill_name,karvand_skill_level,karvand_skill_score)         
                     skills.append(skill)
-            karvand = create_new_karvand(karvand_name,karvand_email
-                       ,karvand_city,karvand_degree,karvand_field
-                       ,karvand_id,skills)
-            karvands.append(karvand)    
-        
-            bootcamp_data["karvands"].append(karvand)
+            
+            karvand = create_new_karvand(
+    karvand_name,
+    karvand_email,
+    karvand_city,
+    karvand_degree,
+    karvand_field,
+    karvand_id,
+    skills
+)
+
             os.makedirs(target_path, exist_ok=True)
+
+            if os.path.exists("data/karvands.json"):
+                with open("data/karvands.json", "r") as file:
+                    bootcamp_data = json.load(file)
+
+            else:
+                bootcamp_data = {
+                    "bootcamp": {
+                        "title": "Karvand Python",
+                        "year": 2026
+                    },
+                    "karvands": []
+                }
+
+            bootcamp_data["karvands"].append(karvand)
+
             with open("data/karvands.json", "w") as file:
                 json.dump(bootcamp_data, file, indent=4)
 
@@ -136,7 +159,7 @@ while True:
                     print(f"There is no karvand with this id: {search_id}")
          
         case "4" | "Search(skills)":
-            search_skill = input("Enter an skill to search: ")
+            search_skill = input("Enter an skill to search: ").strip().lower()
             with open("data/karvands.json", "r") as file:
                 data = json.load(file)
                 current_karvands = data["karvands"]
@@ -167,16 +190,16 @@ while True:
                                """)
                         match edit_option:
                             case "1" | "Email":
-                                edit_email = input("Please enter new email: ")
+                                edit_email = input("Please enter new email: ").strip().lower()
                                 karvand["email"] = edit_email
                             case "2" | "City":
-                                edit_city = input("Please enter new city: ")
+                                edit_city = input("Please enter new city: ").strip().lower()
                                 karvand["city"] = edit_city
                             case "3" | "Degree" :
-                                edit_degree = input("Please enter new degree: ")
+                                edit_degree = input("Please enter new degree: ").strip().lower()
                                 karvand["education"]["degree"] = edit_degree
                             case "4" | "Field" :
-                                edit_field = input("Please enter new field: ")
+                                edit_field = input("Please enter new field: ").strip().lower()
                                 karvand["education"]["field"] = edit_field
 
                 with open("data/karvands.json", "w") as file:
@@ -223,7 +246,7 @@ while True:
 
                 print(f"\"total_karvands\" : {count_of_karvand}")  
                 print(f"\"total_skills\" : {count_of_skills}") 
-                print(f"\"average_skill_score\" : {sum_of_scores / count_of_skills}") 
+                print(f"\"average_skill_score\" : {(sum_of_scores / count_of_skills):.2f}") 
                 print(f"\"cities\":{list_of_cities}")
                 print(f"\"unique_skills\":{list_of_skills}")
                 
@@ -236,5 +259,6 @@ while True:
                 with open("data/report.json","+w") as f:
                     json.dump(data_of_repport, f , indent=4)
 
-        case "8" | "Exit":
+        case _ :
             break
+
