@@ -54,15 +54,15 @@ while True:
 
     match user_order:
         case "1" | "Add":
-            karvand_name = input("Enter name of karvand: ")
-            karvand_email = input("Enter email of karvand: ")
-            karvand_city = input("Enter city of karvand: ")
-            karvand_degree = input("Enter degree of karvand: ")
-            karvand_field = input("Enter field of karvand: ")
+            karvand_name = input("Enter name of karvand: ").strip()
+            karvand_email = input("Enter email of karvand: ").strip()
+            karvand_city = input("Enter city of karvand: ").strip().lower()
+            karvand_degree = input("Enter degree of karvand: ").strip().lower()
+            karvand_field = input("Enter field of karvand: ").strip().lower()
             karvand_id = uuid.uuid4()
 
             while True:
-                karvand_skill_name = input("Enter skill\' name of karvand(enter 0 to exit from skill part): ")
+                karvand_skill_name = input("Enter skill\' name of karvand(enter 0 to exit from skill part): ").strip().lower()
                 if karvand_skill_name == "0" :
                     break
                 else:
@@ -72,9 +72,9 @@ while True:
                     except ValueError:
                         print("You can only enter number in this field.")
                         karvand_skill_score = int(input("Enter score of skill: "))
-                    if karvand_skill_score < 0 | karvand_skill_score > 100:
+                    if karvand_skill_score < 0 or karvand_skill_score > 100:
                         print("enter skill score between 0 - 100")
-                    while 100 <  karvand_skill_score < 0:
+                    while 0 >  karvand_skill_score or karvand_skill_score > 100:
                         karvand_skill_score = int(input("Enter score of skill: "))
                     skill = create_skill_list(karvand_skill_name,karvand_skill_level,karvand_skill_score)         
                     skills.append(skill)
@@ -136,7 +136,7 @@ while True:
                     print(f"There is no karvand with this id: {search_id}")
          
         case "4" | "Search(skills)":
-            search_skill = input("Enter an skill to search: ")
+            search_skill = input("Enter an skill to search: ").strip().lower()
             with open("data/karvands.json", "r") as file:
                 data = json.load(file)
                 current_karvands = data["karvands"]
@@ -167,16 +167,16 @@ while True:
                                """)
                         match edit_option:
                             case "1" | "Email":
-                                edit_email = input("Please enter new email: ")
+                                edit_email = input("Please enter new email: ").strip().lower()
                                 karvand["email"] = edit_email
                             case "2" | "City":
-                                edit_city = input("Please enter new city: ")
+                                edit_city = input("Please enter new city: ").strip().lower()
                                 karvand["city"] = edit_city
                             case "3" | "Degree" :
-                                edit_degree = input("Please enter new degree: ")
+                                edit_degree = input("Please enter new degree: ").strip().lower()
                                 karvand["education"]["degree"] = edit_degree
                             case "4" | "Field" :
-                                edit_field = input("Please enter new field: ")
+                                edit_field = input("Please enter new field: ").strip().lower()
                                 karvand["education"]["field"] = edit_field
 
                 with open("data/karvands.json", "w") as file:
