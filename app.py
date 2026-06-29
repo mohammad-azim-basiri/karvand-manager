@@ -3,7 +3,8 @@ import uuid
 import json
 import os
 
-target_path = r"G:\Maktabsharif_AI\CW2\karvand-manager\data"
+# target_path = r"G:\Maktabsharif_AI\CW2\karvand-manager\data"
+target_path = "data"
 
 bootcamp_data = {
     "bootcamp": {
@@ -256,7 +257,7 @@ while True:
                                    "cities":list_of_cities,
                                    "unique_skills":list_of_skills}
 
-                with open("data/report.json","+w") as f:
+                with open("data/report.json","w") as f:
                     json.dump(data_of_repport, f , indent=4)
 
         case _ :
