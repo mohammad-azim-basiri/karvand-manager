@@ -1,0 +1,67 @@
+{
+    "bootcamp": {
+        "title": "Karvand Python",
+        "year": 2026
+    },
+    "karvands": [
+        {
+            "id": "6c22b19c-8aed-4920-8d37-563ae3a471af",
+            "full_name": "m.azim",
+            "email": "m.azim@email.com",
+            "city": "mashhad",
+            "education": {
+                "degree": "master",
+                "field": "computer"
+            },
+            "skills": [
+                {
+                    "name": "front end",
+                    "level": "advanced",
+                    "score": 80
+                },
+                {
+                    "name": "llm",
+                    "level": "intermediate",
+                    "score": 30
+                },
+                {
+                    "name": "nlp",
+                    "level": "bellow intermediate",
+                    "score": 10
+                },
+                {
+                    "name": "react",
+                    "level": "advanced",
+                    "score": 85
+                }
+            ]
+        },
+        {
+            "id": "7b53a11f-e0d6-4eb0-b181-37b018c27bec",
+            "full_name": "amir",
+            "email": "amir@gmail.com",
+            "city": "minab",
+            "education": {
+                "degree": "phd",
+                "field": "ai"
+            },
+            "skills": [
+                {
+                    "name": "llm",
+                    "level": "advanced",
+                    "score": 85
+                },
+                {
+                    "name": "nlp",
+                    "level": "advanced",
+                    "score": 95
+                },
+                {
+                    "name": "cnn",
+                    "level": "upper intermediate",
+                    "score": 75
+                }
+            ]
+        }
+    ]
+}
