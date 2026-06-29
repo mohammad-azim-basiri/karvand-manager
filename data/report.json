@@ -1,16 +1,13 @@
 {
-    "total_karvands": 2,
-    "total_skills": 7,
-    "average_skill_score": 65.71428571428571,
+    "total_karvands": 1,
+    "total_skills": 3,
+    "average_skill_score": 81.0,
     "cities": [
-        "mashhad",
-        "minab"
+        "tehran"
     ],
     "unique_skills": [
         "front end",
-        "llm",
-        "nlp",
         "react",
-        "cnn"
+        "js"
     ]
 }

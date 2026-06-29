@@ -5,10 +5,10 @@
     },
     "karvands": [
         {
-            "id": "6c22b19c-8aed-4920-8d37-563ae3a471af",
+            "id": "7590477a-10a0-4bc1-afe2-3166a9347f60",
             "full_name": "m.azim",
-            "email": "m.azim@email.com",
-            "city": "mashhad",
+            "email": "m.azim@gmail.com",
+            "city": "tehran",
             "education": {
                 "degree": "master",
                 "field": "computer"
@@ -17,49 +17,17 @@
                 {
                     "name": "front end",
                     "level": "advanced",
-                    "score": 80
-                },
-                {
-                    "name": "llm",
-                    "level": "intermediate",
-                    "score": 30
-                },
-                {
-                    "name": "nlp",
-                    "level": "bellow intermediate",
-                    "score": 10
+                    "score": 85
                 },
                 {
                     "name": "react",
                     "level": "advanced",
-                    "score": 85
-                }
-            ]
-        },
-        {
-            "id": "7b53a11f-e0d6-4eb0-b181-37b018c27bec",
-            "full_name": "amir",
-            "email": "amir@gmail.com",
-            "city": "minab",
-            "education": {
-                "degree": "phd",
-                "field": "ai"
-            },
-            "skills": [
-                {
-                    "name": "llm",
-                    "level": "advanced",
-                    "score": 85
+                    "score": 80
                 },
                 {
-                    "name": "nlp",
+                    "name": "js",
                     "level": "advanced",
-                    "score": 95
-                },
-                {
-                    "name": "cnn",
-                    "level": "upper intermediate",
-                    "score": 75
+                    "score": 78
                 }
             ]
         }
