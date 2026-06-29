@@ -12,7 +12,7 @@ bootcamp_data = {
     },
     "karvands": []
 }
-karvands = []
+# karvands = []
 def create_new_karvand(karvand_name,karvand_email
                        ,karvand_city,karvand_degree,karvand_field
                        ,karvand_id,skills):
@@ -67,24 +67,47 @@ while True:
                     break
                 else:
                     karvand_skill_level = input("Enter level of skill: ")
-                    try:
-                        karvand_skill_score = int(input("Enter score of skill: "))
-                    except ValueError:
-                        print("You can only enter number in this field.")
-                        karvand_skill_score = int(input("Enter score of skill: "))
+                    while True:
+                        try:
+                            karvand_skill_score = int(input("Enter score of skill: "))
+                            break
+                        except ValueError:
+                            print("You can only enter number in this field.")
+                    
                     if karvand_skill_score < 0 or karvand_skill_score > 100:
                         print("enter skill score between 0 - 100")
                     while 0 >  karvand_skill_score or karvand_skill_score > 100:
                         karvand_skill_score = int(input("Enter score of skill: "))
                     skill = create_skill_list(karvand_skill_name,karvand_skill_level,karvand_skill_score)         
                     skills.append(skill)
-            karvand = create_new_karvand(karvand_name,karvand_email
-                       ,karvand_city,karvand_degree,karvand_field
-                       ,karvand_id,skills)
-            karvands.append(karvand)    
-        
-            bootcamp_data["karvands"].append(karvand)
+            
+            karvand = create_new_karvand(
+    karvand_name,
+    karvand_email,
+    karvand_city,
+    karvand_degree,
+    karvand_field,
+    karvand_id,
+    skills
+)
+
             os.makedirs(target_path, exist_ok=True)
+
+            if os.path.exists("data/karvands.json"):
+                with open("data/karvands.json", "r") as file:
+                    bootcamp_data = json.load(file)
+
+            else:
+                bootcamp_data = {
+                    "bootcamp": {
+                        "title": "Karvand Python",
+                        "year": 2026
+                    },
+                    "karvands": []
+                }
+
+            bootcamp_data["karvands"].append(karvand)
+
             with open("data/karvands.json", "w") as file:
                 json.dump(bootcamp_data, file, indent=4)
 
@@ -223,7 +246,7 @@ while True:
 
                 print(f"\"total_karvands\" : {count_of_karvand}")  
                 print(f"\"total_skills\" : {count_of_skills}") 
-                print(f"\"average_skill_score\" : {sum_of_scores / count_of_skills}") 
+                print(f"\"average_skill_score\" : {(sum_of_scores / count_of_skills):.2f}") 
                 print(f"\"cities\":{list_of_cities}")
                 print(f"\"unique_skills\":{list_of_skills}")
                 
@@ -236,5 +259,5 @@ while True:
                 with open("data/report.json","+w") as f:
                     json.dump(data_of_repport, f , indent=4)
 
-        case "8" | "Exit":
+        case _ :
             break
